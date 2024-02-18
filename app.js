@@ -2,6 +2,7 @@ let todoInput
 let errorInfo
 let addBtn
 let ulList
+let newTodo //nowe LI, nowe zadanie
 
 const main = () => {
 	prepareDOMElements()
@@ -17,12 +18,23 @@ const prepareDOMEvents = () => {
 	addEventListener('click', addTodoItem)
 }
 
-document.addEventListener('DOMContentLoaded', main)
 const addTodoItem = () => {
 	if (todoInput.value !== '') {
-		console.log('ok')
+		newTodo = document.createElement('li')
+		newTodo.textContent = todoInput.value
+		ulList.append(newTodo)
+		todoInput.value = ''
+		errorInfo.textContent = ''
 	} else {
 		errorInfo.textContent = 'wpisz treść'
 	}
 }
+
+
+const createButtons = () => {
+	const toolsPanel = document.createElement('div')
+	toolsPanel.classList.tools
+}
+
+document.addEventListener('DOMContentLoaded', main)
 // addBtn.appendChild(newElement)
