@@ -1,8 +1,14 @@
-let todoInput
-let errorInfo
-let addBtn
+let todoInput //wpisywanie tresci zadania
+let errorInfo //info o braku zas
+let addBtn //button add nowy do listy
 let ulList
 let newTodo //nowe LI, nowe zadanie
+let popup
+let popupInfo //tekst w popoupie
+let todoToEdit //edytowany Todo
+let popupInput //input w popoupie
+let popupAddBtn //zatwierdz w popoupi
+let popupCloseBtn //anuluj w popupie
 
 const main = () => {
 	prepareDOMElements()
@@ -13,6 +19,12 @@ const prepareDOMElements = () => {
 	errorInfo = document.querySelector('.error-info')
 	addBtn = document.querySelector('.btn-add')
 	ulList = document.querySelector('.todolist ul')
+
+	popup = document.querySelector('.popup')
+	popupInfo = document.querySelector('.popup-info')
+	popupInput = document.querySelector('.popup-input')
+	popupAddBtn = document.querySelector('.accept')
+	popupCloseBtn = document.querySelector('.cancel')
 }
 const prepareDOMEvents = () => {
 	addBtn.addEventListener('click', addTodoItem)
@@ -56,15 +68,23 @@ const checkClick = event => {
 	// console.log(event.target.classList.contains('complete'))
 
 	if (event.target.matches('.complete')) {
-		console.log('completed')
-		console.log(event.targer)
+		// buttonComplete.classList.add('complete')
+		event.target.closest('li').classList.toggle('completed')
+		event.target.classList.toggle('completed')
 	} else if (event.target.matches('.edit')) {
-		console.log('edited')
-	}
-	else if (event.target.matches('.delete')) {
-		console.log('deleted')
+		editTodo()
+		// console.log('edited')
+	} else if (event.target.matches('.delete')) {
+		// console.log('deleted')
 	}
 }
+
+const editTodo = () => {
+	popup.style.display = 'flex'
+
+	// buttonEdit.classList.add('edit')
+}
+// editTodo()
 //
 //
 //
