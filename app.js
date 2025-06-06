@@ -29,6 +29,8 @@ const prepareDOMElements = () => {
 const prepareDOMEvents = () => {
 	addBtn.addEventListener('click', addTodoItem)
 	ulList.addEventListener('click', checkClick)
+	popupCloseBtn.addEventListener('click', closePopup)
+	popupAddBtn.addEventListener('click', changeTodoText)
 }
 
 const addTodoItem = () => {
@@ -50,7 +52,7 @@ const createButtons = () => {
 
 	const buttonComplete = document.createElement('button')
 	buttonComplete.classList.add('complete')
-	buttonComplete.innerHTML = '<i class="fas fa-check"</>'
+	buttonComplete.innerHTML = '<i class="fas fa-check"></>'
 
 	const buttonEdit = document.createElement('button')
 	buttonEdit.classList.add('edit')
@@ -58,7 +60,7 @@ const createButtons = () => {
 
 	const buttonDelete = document.createElement('button')
 	buttonDelete.classList.add('delete')
-	buttonDelete.innerHTML = '<i class="fas fa-times"</>'
+	buttonDelete.innerHTML = '<i class="fas fa-times"></>'
 
 	newTodo.append(toolsPanel)
 	// console.log('dupa')
@@ -72,17 +74,35 @@ const checkClick = event => {
 		event.target.closest('li').classList.toggle('completed')
 		event.target.classList.toggle('completed')
 	} else if (event.target.matches('.edit')) {
-		editTodo()
+		editTodo(event)
 		// console.log('edited')
 	} else if (event.target.matches('.delete')) {
 		// console.log('deleted')
 	}
 }
 
-const editTodo = () => {
+const editTodo = event => {
+	todoToEdit = event.target.closest('li')
+
+	popupInput.value = todoToEdit.firstChild.textContent
+	console.log(todoToEdit.firstChild)
 	popup.style.display = 'flex'
 
 	// buttonEdit.classList.add('edit')
+}
+const closePopup = () => {
+	popup.style.display = 'none'
+	popupInfo.textContent = ''
+}
+
+const changeTodoText = () => {
+	if (popupInput.value !== '') {
+		todoToEdit.firstChild.textContent = popupInput.value
+		popup.style.display = 'none'
+		popupInfo.textContent = ''
+	} else {
+		popupInfo.textContent = 'error'
+	}
 }
 // editTodo()
 //
